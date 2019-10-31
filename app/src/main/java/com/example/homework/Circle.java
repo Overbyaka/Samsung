@@ -1,0 +1,27 @@
+package com.example.homework;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.view.View;
+
+public class Circle extends View {
+
+    public Circle(Context context) {
+        super(context);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas){
+        super.onDraw(canvas);
+        Paint paint = new Paint();
+        paint.setColor(Color.GREEN);
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawCircle(300,300,200,paint);
+        paint.setColor(Color.CYAN);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(20);
+        canvas.drawCircle(300,300,200,paint);
+    }
+}

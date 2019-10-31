@@ -9,6 +9,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(new MyView(this));
+        //setContentView(new DrawingPatterns(this));
+        setContentView(new Circle((this)));
     }
 }
