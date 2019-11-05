@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.view.View;
 
 public class Graphics extends View {
@@ -23,7 +24,7 @@ public class Graphics extends View {
         int x0 = this.getWidth()/2;
         int y0 = this.getHeight()/2;
 
-        Paint paint =new Paint();
+        Paint paint = new Paint();
         paint.setStrokeWidth(5);
         paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.STROKE);
@@ -34,6 +35,43 @@ public class Graphics extends View {
         canvas.drawLine(0,y0,this.getWidth(),y0,paint); //Рисует ось OY
         canvas.drawText("X",this.getWidth() - 50,y0+50,paint);
 
+        Path path = new Path();
+        boolean first = true;
+        paint.setColor(Color.BLUE);
+        for(x = xmin; x < xmax; x += h){
 
+            y = Math.abs(x);
+            // y = Math.pow(x,4);
+            // y = Math.tan(x);
+            // y = 3 * Math.sin(x);
+            xe = x0 + k*x;
+            ye = y0 - k*y;
+            if(first){
+                path.moveTo((float)xe,(float)ye);
+                first = false;
+            }
+            else{
+                path.lineTo((float) xe,(float)ye);
+            }
+            canvas.drawPath(path,paint);
+        }
+        Path path2 = new Path();
+        first = true;
+        paint.setColor(Color.RED);
+        for(x = xmin; x < xmax; x+=h){
+            y= -x*x+3;
+            // y = Math.tan(x);
+            // y = 3 * Math.sin(x);
+            xe = x0 + k*x;
+            ye = y0 - k*y;
+            if(first){
+                path2.moveTo((float)xe,(float)ye);
+                first = false;
+            }
+            else{
+                path2.lineTo((float)xe,(float)ye);
+            }
+            canvas.drawPath(path2, paint);
+        }
     }
 }
