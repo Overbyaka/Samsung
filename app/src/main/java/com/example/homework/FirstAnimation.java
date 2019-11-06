@@ -41,6 +41,12 @@ public class FirstAnimation extends View {
         }
     }
 
+    void addValue(float[] array,float[] value){
+        for(int i = 0; i < array.length;i++){
+            array[i]+=value[i];
+        }
+    }
+
     void fillBoolean(boolean[] array, boolean value){
         for(int i = 0; i < array.length;i++){
             array[i] = value;
@@ -118,6 +124,13 @@ public class FirstAnimation extends View {
         }
     }
 
+    void drawBalls(Canvas canvas){
+        for (int i = 0; i < N; i++) {
+            paint.setColor(Color.rgb((int)Red[i],(int)Green[i],(int)Blue[i]));
+            canvas.drawCircle(x[i], y[i], RADIUS, paint);
+        }
+    }
+
     boolean isStart = false;
     boolean isBeforeStart = false;
     boolean whileTheyAreFalling = true;
@@ -152,14 +165,11 @@ public class FirstAnimation extends View {
         else{
             checkIsBallCrash();
         }
-        for (int i = 0; i < N; i++) {
-            paint.setColor(Color.rgb((int)Red[i],(int)Green[i],(int)Blue[i]));
-            canvas.drawCircle(x[i], y[i], RADIUS, paint);
-        }
-        for (int i = 0; i < N; i++) {
-            x[i] += vx[i];
-            y[i] += vy[i];
-        }
+
+        drawBalls(canvas);
+
+        addValue(x,vx);
+        addValue(y,vy);
 
         invalidate();
 
