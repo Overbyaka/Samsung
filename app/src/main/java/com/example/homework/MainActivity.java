@@ -10,7 +10,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent(this, CellsActivity.class);
+        Intent intent = new Intent(this, Sapper.class);
         this.startActivity(intent);
+        finish();
     }
 }
