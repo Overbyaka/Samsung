@@ -11,8 +11,8 @@ import android.widget.Button;
 import android.widget.GridLayout;
 
 public class CellsActivity extends Activity implements View.OnClickListener, View.OnLongClickListener {
-    private int WIDTH = 10;
-    private int HEIGHT = 10;
+    private int WIDTH = 6;
+    private int HEIGHT = 4;
 
     private Button[][] cells;
 

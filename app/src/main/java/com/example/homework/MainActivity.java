@@ -11,6 +11,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = new Intent(this, CellsActivity.class);
-        startActivity(intent);
+        this.startActivity(intent);
     }
 }
