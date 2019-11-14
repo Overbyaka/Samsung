@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 
+import ru.samsung.itschool.book.equation243.R;
+
 public class CellsActivity extends Activity implements View.OnClickListener, View.OnLongClickListener {
     private int WIDTH = 6;
     private int HEIGHT = 4;
