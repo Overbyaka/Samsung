@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 
+import ru.samsung.itschool.book.equation243.R;
+
 public class Sapper extends Activity implements View.OnClickListener, View.OnLongClickListener {
     private int WIDTH = 11;
     private int HEIGHT = 17;
