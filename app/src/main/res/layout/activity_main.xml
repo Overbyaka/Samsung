@@ -7,31 +7,21 @@
     android:orientation="vertical"
     tools:context="com.example.homework.MainActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="24dp"
-        android:text="@string/title" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/coefficient_a"
-        android:hint="@string/a"/>
+        android:id="@+id/login"
+        android:hint="@string/login"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/coefficient_b"
-        android:hint="@string/b"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/coefficient_c"
-        android:hint="@string/c"/>
+        android:id="@+id/password"
+        android:hint="@string/password"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="solveEquation"
-        android:text="@string/calculate"/>
+        android:onClick="entering"
+        android:text="@string/enter"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
