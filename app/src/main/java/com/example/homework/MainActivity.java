@@ -2,65 +2,61 @@ package com.example.homework;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import ru.samsung.itschool.book.equation243.R;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int REQ_C = 0;
-    Button button, button2, button3;
-    EditText et;
-    TextView tv;
+    protected static final int RESULT_SPEECH = 1;
+    private ImageButton btnSpeak;
+    private TextView textView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        button = (Button) findViewById(R.id.button);
-        button2 = (Button) findViewById(R.id.button2);
-        button3 = (Button) findViewById(R.id.button3);
-        et = (EditText) findViewById(R.id.et);
-        tv = (TextView) findViewById(R.id.tv);
-        View.OnClickListener listener = new View.OnClickListener() {
+        btnSpeak = (ImageButton) findViewById(R.id.question);
+        textView = (TextView) findViewById(R.id.text);
+        View.OnClickListener listener= new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent i;
-                switch (v.getId()) {
-                    case R.id.button:
-                        i = new Intent(MainActivity.this, MainActivity2.class);
-                        startActivity(i);
-                        break;
-                    case R.id.button2:
-                        i = new Intent(MainActivity.this, ToInfActivity.class);
-                        String eText = et.getText().toString();
-                        i.putExtra("et", eText);
-                        startActivity(i);
-                        break;
-                    case R.id.button3:
-                        i = new Intent(MainActivity.this, ComeBackActivity.class);
-                        startActivityForResult(i, REQ_C);
-                        break;
-                        default:
-                            return;
+            public void onClick(View view) {
+                Intent intent = new Intent(
+                        RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                        "en-US");
+                try {
+                    startActivityForResult(intent, RESULT_SPEECH);
+                } catch (ActivityNotFoundException a) {
+                    Toast.makeText(getApplicationContext(),
+                            "текст не распознан",
+                            Toast.LENGTH_SHORT).show();
                 }
+
             }
         };
-        button.setOnClickListener(listener);
-        button2.setOnClickListener(listener);
-        button3.setOnClickListener(listener);
+        btnSpeak.setOnClickListener(listener);
     }
-
-    public void onActivityResult(int requestCode,int resultCode, Intent data){
-        switch (resultCode){
-            case RESULT_OK:
-                tv.setText(data.getStringExtra("et"));
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        switch (requestCode){
+            case RESULT_SPEECH:{
+                if(resultCode==RESULT_OK&&null!=data){
+                    ArrayList<String> text = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    textView.setText(text.get(0));
+                }
                 break;
+            }
         }
     }
 }
