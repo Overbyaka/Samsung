@@ -2,61 +2,50 @@ package com.example.homework;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.speech.RecognizerIntent;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 import ru.samsung.itschool.book.equation243.R;
 
 public class MainActivity extends AppCompatActivity {
-    protected static final int RESULT_SPEECH = 1;
-    private ImageButton btnSpeak;
-    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btnSpeak = (ImageButton) findViewById(R.id.question);
-        textView = (TextView) findViewById(R.id.text);
-        View.OnClickListener listener= new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(
-                        RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                        "en-US");
-                try {
-                    startActivityForResult(intent, RESULT_SPEECH);
-                } catch (ActivityNotFoundException a) {
-                    Toast.makeText(getApplicationContext(),
-                            "текст не распознан",
-                            Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        };
-        btnSpeak.setOnClickListener(listener);
+        Toast.makeText(this,"create",Toast.LENGTH_SHORT).show();
     }
-    @Override
-    protected void onActivityResult(int requestCode,int resultCode, Intent data){
-        super.onActivityResult(requestCode,resultCode,data);
-        switch (requestCode){
-            case RESULT_SPEECH:{
-                if(resultCode==RESULT_OK&&null!=data){
-                    ArrayList<String> text = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    textView.setText(text.get(0));
-                }
-                break;
-            }
+
+    String LOGIN= "Mur";
+    String PASSWORD = "Meow";
+
+    public void entering(View view){
+        String login = ((EditText)findViewById(R.id.login)).getText().toString();
+        String password = ((EditText)findViewById(R.id.password)).getText().toString();
+        TextView result = (TextView) findViewById(R.id.result);
+        if(LOGIN.equals(login) && PASSWORD.equals(password)){
+            result.setTextColor(Color.GREEN);
+            result.setText("Верно");
+        }
+        else {
+            result.setTextColor(Color.RED);
+            result.setText("Вы ошиблись в логине или пароле");
+            Intent i = new Intent(MainActivity.this,RegistrationUsers.class);
+            startActivityForResult(i,0);
+        }
+    }
+    public void onActivityResult(int requestCode,int resultCode,Intent data){
+        switch (resultCode){
+            case RESULT_OK:
+                LOGIN = data.getStringExtra("login");
+                PASSWORD = data.getStringExtra("password");
+                ((EditText) findViewById(R.id.login)).setText(LOGIN);
+                ((EditText) findViewById(R.id.password)).setText(PASSWORD);
         }
     }
 }
