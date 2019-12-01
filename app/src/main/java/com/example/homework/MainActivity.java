@@ -31,21 +31,12 @@ public class MainActivity extends AppCompatActivity {
         if(LOGIN.equals(login) && PASSWORD.equals(password)){
             result.setTextColor(Color.GREEN);
             result.setText("Верно");
+            Intent i = new Intent(MainActivity.this,MainActivity2.class);
+            startActivity(i);
         }
         else {
             result.setTextColor(Color.RED);
             result.setText("Вы ошиблись в логине или пароле");
-            Intent i = new Intent(MainActivity.this,RegistrationUsers.class);
-            startActivityForResult(i,0);
-        }
-    }
-    public void onActivityResult(int requestCode,int resultCode,Intent data){
-        switch (resultCode){
-            case RESULT_OK:
-                LOGIN = data.getStringExtra("login");
-                PASSWORD = data.getStringExtra("password");
-                ((EditText) findViewById(R.id.login)).setText(LOGIN);
-                ((EditText) findViewById(R.id.password)).setText(PASSWORD);
         }
     }
 }
