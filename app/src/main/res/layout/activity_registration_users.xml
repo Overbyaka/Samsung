@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="24dp"
-        android:hint="@string/registration"/>
+        android:hint=""/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,6 +25,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="entering"
-        android:text="@string/create"
+        android:text=""
         android:id="@+id/create"/>
 </LinearLayout>
