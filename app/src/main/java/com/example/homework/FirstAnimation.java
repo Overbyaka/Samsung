@@ -2,12 +2,16 @@ package com.example.homework;
 
 import android.content.Context;
 import android.graphics.Canvas;
+<<<<<<< Updated upstream
 import android.graphics.Color;
+=======
+>>>>>>> Stashed changes
 import android.graphics.Paint;
 import android.view.View;
 
 public class FirstAnimation extends View {
 
+<<<<<<< Updated upstream
     int N = 100;
     int RADIUS = 30;
     float[]x = new float[N];
@@ -21,10 +25,13 @@ public class FirstAnimation extends View {
     float maxV = 10, minV = -10;
     Paint paint = new Paint();
 
+=======
+>>>>>>> Stashed changes
     public FirstAnimation(Context context) {
         super(context);
     }
 
+<<<<<<< Updated upstream
     float rand(float min,float max){
         return (float)(Math.random()*(max-min+1)+min);
     }
@@ -172,6 +179,12 @@ public class FirstAnimation extends View {
         addValue(y,vy);
 
         invalidate();
+=======
+    @Override
+    protected void onDraw(Canvas canvas){
+        super.onDraw(canvas);
+        Paint paint = new Paint();
+>>>>>>> Stashed changes
 
     }
 }

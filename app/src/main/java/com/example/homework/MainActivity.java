@@ -1,69 +1,68 @@
 package com.example.homework;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Scanner;
+import androidx.appcompat.app.AppCompatActivity;
+
 
 import ru.samsung.itschool.book.equation243.R;
 
-public class MainActivity extends AppCompatActivity {
-    public static Character student;
-    public static Story story;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+    private TextView tv;
+    private Button b1,b2;
+    private int temp = 0;
 
+    MyAsyncTask myAsyncTask = new MyAsyncTask();
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        student = new Character("Мурка");
-        story = new Story();
-        Toast.makeText(this,"create",Toast.LENGTH_SHORT).show();
-        updateStatus();
+        tv = findViewById(R.id.number);
+        b1 = findViewById(R.id.button1);
+        b2 = findViewById(R.id.button2);
+
+    }
+    @Override
+    public void onClick(View v){
+        switch (v.getId()){
+            case R.id.button1:
+                myAsyncTask = new MyAsyncTask();
+                myAsyncTask.execute();
+                break;
+            case R.id.button2:
+                if(!myAsyncTask.isCancelled())
+                    myAsyncTask.cancel(true);
+                break;
+        }
     }
 
-    // метод для перехода на нужную ветку развития
-    private void go(int i) {
-        story.go(i + 1);
-        updateStatus();
-        if (story.isEnd())
-            Toast.makeText(this, "Игра закончена!", Toast.LENGTH_LONG).show();
-    }
-
-    // в этом методе размещаем всю информацию, специфичную для текущей
-    // ситуации на форме приложения, а также размещаем кнопки, которые
-    // позволят пользователю выбрать дальнейший ход событий
-    private void updateStatus() {
-        student.difficult += story.current_situation.dDifficult;
-        student.knowledge += story.current_situation.dKnowledge;
-        student.watching += story.current_situation.dWatching;
-        ((TextView) findViewById(R.id.status)).
-                setText("Сложность получения удовлетвортельной оценки:" + student.difficult +
-                        "\nЗнания:" + student.knowledge + "\nСлежка преподавателей" + student.watching);
-        ((TextView) findViewById(R.id.title)).
-                setText(story.current_situation.subject);
-        ((TextView) findViewById(R.id.desc)).
-                setText(story.current_situation.text);
-        ((LinearLayout) findViewById(R.id.layout)).removeAllViews();
-        for (int i = 0; i < story.current_situation.direction.length; i++) {
-            Button b = new Button(this);
-            b.setText(Integer.toString(i + 1));
-            final int buttonId = i;
-            b.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    go(buttonId);
+    class MyAsyncTask extends AsyncTask<Void,Integer,Integer>{
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
+        @Override
+        protected Integer doInBackground(Void... parameter){
+            for(int i = 0;i<Integer.MAX_VALUE;i++){
+                try {
+                    Thread.sleep(1000);
+                    temp = i;
+                    tv.setText("" + i);
                 }
-            });
-            ((LinearLayout) findViewById(R.id.layout)).addView(b);
+                catch (InterruptedException e){e.printStackTrace();}
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Integer b) {
+            super.onPostExecute(b);
         }
     }
 }
+
+
